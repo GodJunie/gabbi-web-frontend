@@ -8,8 +8,8 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./node_modules/@types", "./app/@types"],
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "lib": ["es2015", "DOM"],
-    "baseUrl": "app"
+    "baseUrl": "src"
   }
 }
