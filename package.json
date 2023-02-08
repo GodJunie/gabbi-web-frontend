@@ -35,6 +35,7 @@
     "firebase": "^9.17.1",
     "magic-sdk": "^13.1.0",
     "styled-components": "^5.3.6",
+    "typescript": "^4.9.5",
     "validator": "^13.9.0",
     "web3": "^1.8.2"
   },
