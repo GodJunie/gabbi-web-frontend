@@ -15,6 +15,8 @@ import { getBlob, ref as storageRef } from "firebase/storage";
 import { set, ref as databaseRef, update, get } from "firebase/database";
 import Loading from "components/loading";
 
+const resourcesData = require("characters.json");
+
 const parts: CharacterParts[] = ["body", "eyes", "cloth", "head", "face"];
 
 function Customize(): ReactElement {
@@ -29,17 +31,6 @@ function Customize(): ReactElement {
   const [tab, setTab] = useState<CharacterParts>("body");
 
   const [characterData, setCharacterData] = useState<CharacterDto>();
-  const [resourcesData, setResourcesData] = useState<any>(null);
-
-  useEffect(() => {
-    (async () => {
-      const ref = storageRef(storage, "resources/characters.json");
-      const blob = await getBlob(ref);
-      const json = await blob.text();
-      setResourcesData(JSON.parse(json));
-      console.log(json);
-    })();
-  }, []);
 
   useEffect(() => {
     if (userData && !characterData) {
@@ -68,11 +59,7 @@ function Customize(): ReactElement {
               <Common.FlexRow alignItems="center" justifyContent="center">
                 <Styled.CharacterContainer>
                   <Styled.CharacterViewport>
-                    <Character
-                      resourcesData={resourcesData}
-                      data={characterData}
-                      size={400}
-                    />
+                    <Character data={characterData} size={400} />
                   </Styled.CharacterViewport>
                 </Styled.CharacterContainer>
 
@@ -84,6 +71,7 @@ function Customize(): ReactElement {
                       <Styled.TabButton
                         disabled={tab === e}
                         onClick={() => setTab(e)}
+                        key={e}
                       >
                         <Common.SizedImage
                           width={80}

@@ -17,6 +17,8 @@ import Character from "components/character";
 import { storage } from "services/firebase";
 import { getBlob, ref } from "firebase/storage";
 
+const resourcesData = require("characters.json");
+
 function Profile(): ReactElement {
   const { isMobile, scrollPosition, width, windowSize } =
     useContext(WindowContext);
@@ -30,18 +32,6 @@ function Profile(): ReactElement {
     setUser!(undefined);
     navigate("/");
   }
-
-  const [resourcesData, setResourcesData] = useState<any>(null);
-
-  useEffect(() => {
-    (async () => {
-      const storageRef = ref(storage, "resources/characters.json");
-      const blob = await getBlob(storageRef);
-      const json = await blob.text();
-      setResourcesData(JSON.parse(json));
-      console.log(json);
-    })();
-  }, []);
 
   return (
     <>
@@ -61,11 +51,7 @@ function Profile(): ReactElement {
                   <Common.SizedImage src={Icons.Edit} width={32} height={32} />
                 </Styled.CharacterEditButton>
                 <Styled.CharacterContainer>
-                  <Character
-                    resourcesData={resourcesData}
-                    data={userData?.character}
-                    size={290}
-                  />
+                  <Character data={userData?.character} size={290} />
                 </Styled.CharacterContainer>
               </Styled.ProfilelGabbiContainer>
 

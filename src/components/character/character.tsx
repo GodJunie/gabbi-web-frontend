@@ -5,13 +5,10 @@ import { getBlob, ref } from "firebase/storage";
 import { storage } from "services/firebase";
 
 import CharacterDefault from "img/profile/character_default.png";
+const resourcesData = require("characters.json");
 
-function Character(props: {
-  resourcesData: any;
-  data?: CharacterDto;
-  size: number;
-}): ReactElement {
-  const { data, size, resourcesData } = props;
+function Character(props: { data?: CharacterDto; size: number }): ReactElement {
+  const { data, size } = props;
 
   const multiplier = size / 500;
 
