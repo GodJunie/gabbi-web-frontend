@@ -109,6 +109,17 @@ function Profile(): ReactElement {
 
 function WalletAddress(props: { wallet: string }): ReactElement {
   const { wallet } = props;
+
+  function copyText(text: string) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+  }
+
   return (
     <Styled.WalletContainer>
       <Common.SizedImage src={ChainIcons.Polygon} width={14} height={14} />
@@ -119,7 +130,11 @@ function WalletAddress(props: { wallet: string }): ReactElement {
       >
         {wallet}
       </Styled.WalletAddress>
-      <Common.NoOpacityButton width={12} height={12}>
+      <Common.NoOpacityButton
+        width={12}
+        height={12}
+        onClick={() => copyText(wallet)}
+      >
         <Common.SizedImage src={Icons.Copy} width={12} height={12} />
       </Common.NoOpacityButton>
     </Styled.WalletContainer>
