@@ -34,6 +34,7 @@
     "axios": "^1.3.2",
     "firebase": "^9.17.1",
     "magic-sdk": "^13.1.0",
+    "react-toastify": "^9.1.1",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.5",
     "validator": "^13.9.0",

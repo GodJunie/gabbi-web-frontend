@@ -21,19 +21,29 @@ function Character(props: { data?: CharacterDto; size: number }): ReactElement {
   useEffect(() => {
     if (resourcesData && data) {
       console.log(data);
-      setBodyData(resourcesData.body[data.body ? data.body : 0].renders[2]);
-      if (data.cloth !== undefined) {
-        console.log(data.cloth);
-        setClothData(resourcesData.cloth[data.cloth].render);
+      const body = data.body as number;
+      setBodyData(resourcesData.body[body ? body : 0].renders[2]);
+
+      if (typeof data.cloth === "number") {
+        setClothData(resourcesData.cloth[data.cloth as number].render);
+      } else {
+        setClothData(null);
       }
-      if (data.eyes !== undefined) {
-        setEyesData(resourcesData.eyes[data.eyes].render);
+      if (typeof data.eyes === "number") {
+        setEyesData(resourcesData.eyes[data.eyes as number].render);
+      } else {
+        setEyesData(null);
       }
-      if (data.head !== undefined) {
-        setHeadData(resourcesData.head[data.head].render);
+      if (typeof data.head === "number") {
+        setHeadData(resourcesData.head[data.head as number].render);
+      } else {
+        setHeadData(null);
       }
-      if (data.face !== undefined) {
-        setFaceData(data.face.map((e) => resourcesData.face[e].render));
+      if (data.face) {
+        const face = data.face as number[];
+        setFaceData(face.map((e) => resourcesData.face[e].render));
+      } else {
+        setFaceData([]);
       }
     }
   }, [resourcesData, data]);

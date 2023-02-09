@@ -1,10 +1,6 @@
-interface CharacterDto {
-  body?: number;
-  face?: number[];
-  head?: number;
-  cloth?: number;
-  eyes?: number;
-}
+type CharacterDto = {
+  [key in CharacterParts]?: number[] | number;
+};
 
 interface UserDto {
   username?: string;

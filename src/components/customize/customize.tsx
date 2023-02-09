@@ -47,6 +47,38 @@ function Customize(): ReactElement {
     navigate("/profile");
   }
 
+  function selectItem(i: number) {
+    console.log("click");
+    let data = characterData;
+    if (!data) data = {};
+    switch (tab) {
+      case "face":
+        if (!data["face"]) data["face"] = [];
+        const face = data["face"] as number[];
+        if (face.includes(i)) {
+          face.splice(face.indexOf(i), 1);
+        } else {
+          face.push(i);
+        }
+        data["face"] = face;
+        break;
+      case "body":
+      case "eyes":
+        console.log(`new: ${i}`);
+        data[tab] = i;
+        break;
+      case "head":
+      case "cloth":
+        const part = data[tab];
+        console.log(`origin: ${part}, new: ${i}`);
+        if (typeof part === "number" && part == i) {
+          delete data[tab];
+        } else data[tab] = i;
+        break;
+    }
+    setCharacterData({ ...data });
+  }
+
   return (
     <>
       {resourcesData ? (
@@ -70,7 +102,9 @@ function Customize(): ReactElement {
                     {parts.map((e) => (
                       <Styled.TabButton
                         disabled={tab === e}
-                        onClick={() => setTab(e)}
+                        onClick={() => {
+                          setTab(e);
+                        }}
                         key={e}
                       >
                         <Common.SizedImage
@@ -94,11 +128,7 @@ function Customize(): ReactElement {
                                 height={200}
                                 key={e.renders[2].image}
                                 onClick={() => {
-                                  setCharacterData((value) => {
-                                    if (value) value.body = i;
-                                    else value = { body: i };
-                                    return { ...value };
-                                  });
+                                  selectItem(i);
                                 }}
                               >
                                 <Common.SizedImage
@@ -115,57 +145,7 @@ function Customize(): ReactElement {
                                 height={120}
                                 key={e.render.image}
                                 onClick={() => {
-                                  setCharacterData((value) => {
-                                    if (tab === "face") {
-                                      if (value) {
-                                        if (value.face) {
-                                          if (value.face.includes(i))
-                                            value.face.splice(
-                                              value.face.indexOf(i),
-                                              1
-                                            );
-                                          else value.face.push(i);
-                                        } else {
-                                          value.face = [i];
-                                        }
-                                      } else {
-                                        value = { face: [i] };
-                                      }
-                                    } else {
-                                      if (value) {
-                                        switch (tab) {
-                                          case "head":
-                                            if (value.head == i)
-                                              value.head = undefined;
-                                            else value.head = i;
-                                            break;
-                                          case "cloth":
-                                            if (value.cloth == i)
-                                              value.cloth = undefined;
-                                            else value.cloth = i;
-                                            break;
-                                          case "eyes":
-                                            if (value.eyes == i)
-                                              value.eyes = undefined;
-                                            else value.eyes = i;
-                                            break;
-                                        }
-                                      } else {
-                                        switch (tab) {
-                                          case "head":
-                                            value = { head: i };
-                                            break;
-                                          case "cloth":
-                                            value = { cloth: i };
-                                            break;
-                                          case "eyes":
-                                            value = { eyes: i };
-                                            break;
-                                        }
-                                      }
-                                    }
-                                    return { ...value };
-                                  });
+                                  selectItem(i);
                                 }}
                               >
                                 <Common.SizedImage
