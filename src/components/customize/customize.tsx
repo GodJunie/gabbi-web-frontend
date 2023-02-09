@@ -135,13 +135,19 @@ function Customize(): ReactElement {
                                       if (value) {
                                         switch (tab) {
                                           case "head":
-                                            value.head = i;
+                                            if (value.head == i)
+                                              value.head = undefined;
+                                            else value.head = i;
                                             break;
                                           case "cloth":
-                                            value.cloth = i;
+                                            if (value.cloth == i)
+                                              value.cloth = undefined;
+                                            else value.cloth = i;
                                             break;
                                           case "eyes":
-                                            value.eyes = i;
+                                            if (value.eyes == i)
+                                              value.eyes = undefined;
+                                            else value.eyes = i;
                                             break;
                                         }
                                       } else {
