@@ -19,6 +19,55 @@ import HouseImag from "img/house/house.png";
 import HouseExterior from "img/house/house_exterior.png";
 import HouseInterior from "img/house/house_interior.png";
 
+import Books from "img/house/books.png";
+import Desk from "img/house/desk.png";
+import Flowerpot from "img/house/flowerpot.png";
+import Flowerpot2 from "img/house/flowerpot_2.png";
+import Frame from "img/house/frame.png";
+import Lamp from "img/house/lamp.png";
+import Shelf from "img/house/shelf.png";
+import Sofa from "img/house/sofa.png";
+import Table from "img/house/table.png";
+
+const furnitures: Array<{ image: "*.png"; count: number }> = [
+  {
+    image: Books,
+    count: 10,
+  },
+  {
+    image: Desk,
+    count: 10,
+  },
+  {
+    image: Flowerpot,
+    count: 10,
+  },
+  {
+    image: Flowerpot2,
+    count: 10,
+  },
+  {
+    image: Frame,
+    count: 10,
+  },
+  {
+    image: Lamp,
+    count: 10,
+  },
+  {
+    image: Shelf,
+    count: 10,
+  },
+  {
+    image: Sofa,
+    count: 10,
+  },
+  {
+    image: Table,
+    count: 10,
+  },
+];
+
 function House(): ReactElement {
   const { isMobile, scrollPosition, width, windowSize } =
     useContext(WindowContext);
@@ -52,7 +101,7 @@ function House(): ReactElement {
           <Header />
           <Styled.Container>
             <Styled.Viewport>
-              <Common.SizedBoxH height={50} />
+              <Common.SizedBoxH height={20} />
 
               <Typo.PlasterRegular fontSize={42} color={Colors.neutralBlack}>
                 {houseData?.name}
@@ -70,78 +119,22 @@ function House(): ReactElement {
                 <Common.SizedBoxW width={50} />
 
                 <Styled.InfoContainer>
-                  {/* <Styled.CharacterContainer>
-                    <Styled.CharacterEditButton
-                      onClick={() => {
-                        navigate("/customize");
-                      }}
-                    >
-                      <Common.SizedImage
-                        src={Icons.Edit}
-                        width={32}
-                        height={32}
-                      />
-                    </Styled.CharacterEditButton>
-                    <Styled.CharacterViewport>
-                      <Character data={userData?.character} size={290} />
-                    </Styled.CharacterViewport>
-                  </Styled.CharacterContainer> */}
-                  {/* <Styled.LocationButton
-                    onClick={() => {
-                      window.open(houseData?.location, "_blank");
-                    }}
-                  >
-                    <Typo.UbuntuRegular
-                      fontSize={14}
-                      color={Colors.neutralWhite}
-                    >
-                      Location
-                    </Typo.UbuntuRegular>
-                    <Common.SizedBoxW width={5} />
-                    <Common.SizedImage
-                      src={Icons.Send}
-                      width={20}
-                      height={20}
-                    />
-                  </Styled.LocationButton> */}
-
-                  {houseData &&
-                  houseData.members &&
-                  user &&
-                  user.publicAddress &&
-                  houseData.members.includes(user.publicAddress) ? (
-                    <></>
-                  ) : (
-                    <>
-                      <Typo.UbuntuRegular
-                        fontSize={20}
-                        color={Colors.neutralBlack}
-                      >
-                        ARE YOU ONE OF US?
-                      </Typo.UbuntuRegular>
-
-                      <Common.SizedBoxH height={20} />
-
-                      <Styled.BuyMembershipButton>
-                        <Typo.UbuntuRegular
-                          fontSize={14}
-                          color={Colors.neutralWhite}
-                        >
-                          Buy Membership
-                        </Typo.UbuntuRegular>
-                        <Common.SizedBoxW width={5} />
-                        <Common.SizedImage
-                          src={Icons.Send}
-                          width={20}
-                          height={20}
-                        />
-                      </Styled.BuyMembershipButton>
-                    </>
-                  )}
-
-                  {/* <Typo.VibesRegular fontSize={32} color={Colors.neutralBlack}>
-                    10 / 100
-                  </Typo.VibesRegular> */}
+                  <Styled.InfoViewport>
+                    <Styled.FurnitureContainer>
+                      {furnitures.map((e) => (
+                        <Styled.FurnitureSlot key={e.image}>
+                          <Styled.FurnitureIcon src={e.image} height={60} />
+                          <Common.Span />
+                          <Typo.UbuntuRegular
+                            fontSize={14}
+                            color={Colors.neutralBlack}
+                          >
+                            0/{e.count}
+                          </Typo.UbuntuRegular>
+                        </Styled.FurnitureSlot>
+                      ))}
+                    </Styled.FurnitureContainer>
+                  </Styled.InfoViewport>
                 </Styled.InfoContainer>
               </Common.FlexRow>
 

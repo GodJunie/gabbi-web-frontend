@@ -146,23 +146,6 @@ export const CharacterViewport = styled.div`
   user-select: none; /* Standard syntax */
 `;
 
-export const InfoContainer = styled.div`
-  width: 350px;
-  height: 650px;
-
-  background: ${Colors.neutralWhite};
-
-  box-shadow: 0px 4px 15px rgba(90, 90, 90, 0.1);
-  border-radius: 20px;
-
-  padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const LocationButton = styled.button`
   width: 100%;
   height: 55px;
@@ -213,4 +196,75 @@ export const MembersContainer = styled.div`
 
   grid-template-columns: repeat(4, 120px);
   grid-gap: 12px;
+`;
+
+export const InfoContainer = styled.div`
+  width: 350px;
+  height: 650px;
+
+  background: ${Colors.neutralWhite};
+
+  box-shadow: 0px 4px 15px rgba(90, 90, 90, 0.1);
+  border-radius: 20px;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+`;
+
+export const InfoViewport = styled.div`
+  width: 310px;
+  height: 610px;
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 400px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${Colors.neutralGray300};
+    border-radius: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${Colors.neutralGray200};
+    border-radius: 20px;
+  }
+
+  overflow: auto;
+
+  left: 0;
+  top: 0;
+`;
+
+export const FurnitureContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+`;
+
+export const FurnitureIcon = styled.img`
+  width: 60px;
+  height: 60px;
+
+  object-fit: contain;
+`;
+
+export const FurnitureSlot = styled.div`
+  width: 290px;
+  height: 70px;
+
+  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
+  border-radius: 20px;
+
+  padding: 20px;
+
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
