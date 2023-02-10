@@ -56,6 +56,7 @@ export default function App(): ReactElement {
               <Route element={<Components.Main />} path="/" />
               <Route element={<Components.Profile />} path="/profile" />
               <Route element={<Components.Customize />} path="/customize" />
+              <Route element={<Components.House />} path="/house" />
               <Route element={<Components.Callback />} path="/callback" />
             </Routes>
           </BrowserRouter>

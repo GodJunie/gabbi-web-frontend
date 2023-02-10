@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components';
-import { Colors } from 'common';
+import styled, { createGlobalStyle } from "styled-components";
+import { Colors } from "common";
 
 //#region header
 export const Header = styled.div<{ backgroundColor: string; height: number }>`
@@ -23,7 +23,8 @@ export const HeaderViewport = styled.div<{ width: number; isMobile: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: ${(props) => (props.isMobile ? 10 : 25)}px ${(props) => (props.isMobile ? 20 : 40)}px;
+  padding: ${(props) => (props.isMobile ? 10 : 25)}px
+    ${(props) => (props.isMobile ? 20 : 40)}px;
 `;
 
 export const HeaderLogo = styled.img<{ width: number; height: number }>`
@@ -34,8 +35,8 @@ export const HeaderLogo = styled.img<{ width: number; height: number }>`
 export const HeaderProfileButton = styled.button`
   padding: 0;
 
-  width: 52px;
-  height: 52px;
+  width: 34px;
+  height: 34px;
 
   background: ${Colors.neutralWhite};
   box-shadow: 0px 4px 15px rgba(90, 90, 90, 0.1);

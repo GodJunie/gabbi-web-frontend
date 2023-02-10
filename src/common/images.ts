@@ -10,6 +10,7 @@ import Copy from "img/icons/copy.svg";
 import Edit from "img/icons/edit.svg";
 import CheckWhite from "img/icons/check_white.svg";
 import Back from "img/icons/back.svg";
+import Map from "img/icons/map_icon.svg";
 
 export const Icons = {
   Logo,
@@ -23,6 +24,7 @@ export const Icons = {
   Edit,
   CheckWhite,
   Back,
+  Map,
 };
 
 import Google from "img/icons/google_icon.svg";
@@ -45,10 +47,14 @@ export const SocialIcons = {
 
 import Background from "img/main/background.png";
 import Compass from "img/main/compass.png";
+import Island from "img/main/island.png";
+import Island2 from "img/main/island2.png";
 
 export const MainImages = {
   Background,
   Compass,
+  Island,
+  Island2,
 };
 
 import Polygon from "img/icons/polygon.svg";

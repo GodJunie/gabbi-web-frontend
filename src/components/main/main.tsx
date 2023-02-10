@@ -20,6 +20,8 @@ function Main(): ReactElement {
 
   const { user, setUser, loading, userData } = useContext(UserContext);
 
+  let navigate = useNavigate();
+
   return (
     <>
       {loading ? (
@@ -36,6 +38,16 @@ function Main(): ReactElement {
             >
               <Styled.MainBackground src={MainImages.Background} />
               <Styled.MainCompass src={MainImages.Compass} />
+              <Styled.MainIsland
+                onClick={() => {
+                  navigate("/house");
+                }}
+              >
+                <Common.SizedImage src={MainImages.Island} width={300} />
+              </Styled.MainIsland>
+              <Styled.MainIsland2>
+                <Common.SizedImage src={MainImages.Island2} width={170} />
+              </Styled.MainIsland2>
             </Styled.Viewport>
           </Styled.Container>
         </>

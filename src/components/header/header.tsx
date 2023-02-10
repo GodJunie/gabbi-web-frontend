@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import * as Styled from "./header.style";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { WindowContext } from "context/windowContext";
 import { Colors } from "common";
 import { Icons, MainImages } from "common/images";
@@ -27,9 +27,11 @@ function Header(): ReactElement {
   );
 
   let navigate = useNavigate();
+  let location = useLocation();
   const { user, setUser, loading, userData } = useContext(UserContext);
 
   useEffect(() => {
+    console.log(location.pathname);
     if (!loading) {
       if (popup === "login" && user) {
         setPopup(null);
@@ -51,28 +53,40 @@ function Header(): ReactElement {
       >
         <Styled.HeaderViewport width={width} isMobile={isMobile}>
           <Common.NoOpacityButton
-            width={117}
-            height={45}
+            width={104}
+            height={40}
             onClick={() => navigate("/")}
           >
             <Styled.HeaderLogo width={117} height={45} src={Icons.LogoTypo} />
           </Common.NoOpacityButton>
           <Common.Span />
-          <Styled.HeaderProfileButton
-            onClick={() => {
-              if (loading) return;
+          {location.pathname !== "/profile" ? (
+            <Styled.HeaderProfileButton
+              onClick={() => {
+                if (loading) return;
 
-              if (user && user.issuer) {
-                navigate("/profile");
-                return;
-              }
-              setPopup("login");
-            }}
-          >
-            <Common.Center>
-              <Common.SizedImage src={Icons.Profile} />
-            </Common.Center>
-          </Styled.HeaderProfileButton>
+                if (user && user.issuer) {
+                  navigate("/profile");
+                  return;
+                }
+                setPopup("login");
+              }}
+            >
+              <Common.Center>
+                <Common.SizedImage src={Icons.Profile} width={18} height={18} />
+              </Common.Center>
+            </Styled.HeaderProfileButton>
+          ) : (
+            <Styled.HeaderProfileButton
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <Common.Center>
+                <Common.SizedImage src={Icons.Map} width={18} height={18} />
+              </Common.Center>
+            </Styled.HeaderProfileButton>
+          )}
         </Styled.HeaderViewport>
       </Styled.Header>
       {popup === "login" && <LogIn onClose={() => setPopup(null)} />}
