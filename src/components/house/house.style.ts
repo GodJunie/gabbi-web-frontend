@@ -268,3 +268,23 @@ export const FurnitureSlot = styled.div`
   flex-direction: row;
   align-items: center;
 `;
+
+export const BuyMembership = styled.div`
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+`;

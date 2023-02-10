@@ -135,6 +135,40 @@ function House(): ReactElement {
                       ))}
                     </Styled.FurnitureContainer>
                   </Styled.InfoViewport>
+
+                  {!(
+                    houseData &&
+                    houseData.members &&
+                    user &&
+                    user.publicAddress &&
+                    houseData.members.includes(user.publicAddress)
+                  ) && (
+                    <Styled.BuyMembership>
+                      <Typo.UbuntuRegular
+                        fontSize={20}
+                        color={Colors.neutralBlack}
+                      >
+                        ARE YOU ONE OF US?
+                      </Typo.UbuntuRegular>
+
+                      <Common.SizedBoxH height={20} />
+
+                      <Styled.BuyMembershipButton onClick={() => {}}>
+                        <Typo.UbuntuRegular
+                          fontSize={14}
+                          color={Colors.neutralWhite}
+                        >
+                          Buy Membership
+                        </Typo.UbuntuRegular>
+                        <Common.SizedBoxW width={5} />
+                        <Common.SizedImage
+                          src={Icons.Send}
+                          width={20}
+                          height={20}
+                        />
+                      </Styled.BuyMembershipButton>
+                    </Styled.BuyMembership>
+                  )}
                 </Styled.InfoContainer>
               </Common.FlexRow>
 
