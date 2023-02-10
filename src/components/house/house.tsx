@@ -78,12 +78,17 @@ function House(): ReactElement {
 
   const [loadingData, setLoadingData] = useState(true);
   const [houseData, setHouseData] = useState<HouseDto>();
+  const [id, setId] = useState("");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const id = urlParams.get("id");
-    console.log(id);
+    if (!id) {
+      navigate("/");
+      return;
+    }
 
+    setId(id);
     (async () => {
       const dbRef = databaseRef(db, `houses/${id}`);
       const snapshot = await get(dbRef);
@@ -91,6 +96,21 @@ function House(): ReactElement {
       setLoadingData(false);
     })();
   }, []);
+
+  async function handleBuyMembership() {
+    if (!houseData || !user || !user.publicAddress) return;
+    setLoadingData(true);
+
+    const houseRef = databaseRef(db, `houses/${id}`);
+    const members = houseData.members ? houseData.members : [];
+    console.log(members);
+    members.push(user.publicAddress);
+    await update(houseRef, { members: members });
+
+    const snapshot = await get(houseRef);
+    setHouseData(snapshot.val());
+    setLoadingData(false);
+  }
 
   return (
     <>
@@ -153,7 +173,7 @@ function House(): ReactElement {
 
                       <Common.SizedBoxH height={20} />
 
-                      <Styled.BuyMembershipButton onClick={() => {}}>
+                      <Styled.BuyMembershipButton onClick={handleBuyMembership}>
                         <Typo.UbuntuRegular
                           fontSize={14}
                           color={Colors.neutralWhite}
@@ -203,7 +223,7 @@ function MemberCard(props: { walletAddress: string }) {
       const snapshot = await get(dbRef);
       setUserData(snapshot.val());
     })();
-  });
+  }, []);
 
   return (
     <Styled.CharacterContainer>
