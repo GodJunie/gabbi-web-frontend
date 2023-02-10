@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Character from "components/character";
 import { storage } from "services/firebase";
 import { getBlob, ref } from "firebase/storage";
+import { toast } from "react-toastify";
 
 const resourcesData = require("characters.json");
 
@@ -118,6 +119,17 @@ function WalletAddress(props: { wallet: string }): ReactElement {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
+
+    toast("Copied!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   }
 
   return (

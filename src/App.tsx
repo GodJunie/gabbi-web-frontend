@@ -11,6 +11,9 @@ import { UserProvider } from "context/userContext";
 
 import * as Styled from "./App.style";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: Ubuntu;
@@ -45,6 +48,7 @@ export default function App(): ReactElement {
   return (
     <Styled.Container>
       <GlobalStyle />
+      <ToastContainer />
       <WindowProvider>
         <UserProvider>
           <BrowserRouter>
