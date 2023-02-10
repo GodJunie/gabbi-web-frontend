@@ -48,6 +48,10 @@ export const MainIsland = styled.button`
   border: none;
   padding: 0;
   background: transparent;
+
+  :hover {
+    transform: scale(1.2, 1.2);
+  }
 `;
 
 export const MainIsland2 = styled.button`
@@ -60,5 +64,9 @@ export const MainIsland2 = styled.button`
   border: none;
   padding: 0;
   background: transparent;
+
+  :hover {
+    transform: scale(1.2, 1.2);
+  }
 `;
 //#endregion
