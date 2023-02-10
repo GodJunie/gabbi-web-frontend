@@ -114,7 +114,7 @@ function House(): ReactElement {
 
   return (
     <>
-      {loadingData ? (
+      {loadingData || loading ? (
         <Loading />
       ) : (
         <>
