@@ -11,10 +11,13 @@ import Edit from "img/icons/edit.svg";
 import CheckWhite from "img/icons/check_white.svg";
 import Back from "img/icons/back.svg";
 import Map from "img/icons/map_icon.svg";
+import Favorite from "img/icons/Favorite.svg";
+import Share from "img/icons/Share.svg";
+import House from "img/icons/House.svg";
+import Pin from "img/icons/Pin.svg";
+import Layers from "img/icons/Layers.svg";
 
 export const Icons = {
-  Logo,
-  LogoTypo,
   Profile,
   Close,
   Mail,
@@ -25,6 +28,16 @@ export const Icons = {
   CheckWhite,
   Back,
   Map,
+  Favorite,
+  Share,
+  House,
+  Pin,
+  Layers,
+};
+
+export const Commons = {
+  Logo,
+  LogoTypo,
 };
 
 import Google from "img/icons/google_icon.svg";

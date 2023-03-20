@@ -4,87 +4,103 @@ import { Colors } from "common";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   width: 100%;
   white-space: pre-line;
-  min-height: 100vh;
-
-  padding: 80px 0 0 0;
 `;
 
-export const Viewport = styled.div`
+export const Viewport = styled.div<{ width: number }>`
+  width: ${(props) => props.width}px;
+  padding: 80px 123px 170px;
+
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+`;
+
+export const CircleButton = styled.button`
+  width: 38px;
+  height: 38px;
+
+  background: #ffffff;
+
+  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
+  border-radius: 50%;
+
+  border: none;
+
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-export const HouseContainer = styled.div`
-  width: 900px;
-  height: 650px;
+export const MembersContainer = styled.div`
+  position: sticky;
+  top: 108px;
 
-  background: radial-gradient(
-      at 40% 20%,
-      hsla(28, 100%, 74%, 1) 0px,
-      transparent 50%
-    ),
-    radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0px, transparent 50%);
+  padding: 20px;
 
-  box-shadow: 0px 4px 15px rgba(90, 90, 90, 0.1);
+  width: 333px;
+  height: 661px;
+
+  background: #ffffff;
+
+  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
   border-radius: 20px;
 
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
 `;
 
-export const HouseImage = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+export const HouseMenuButton = styled.button`
+  padding: 12px 24px;
+  gap: 10px;
 
-  z-index: 0;
+  height: 40px;
 
-  object-fit: contain;
+  background: #ffffff;
+
+  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
+  border-radius: 20px;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const HouseExterior = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-
-  z-index: 10;
-  object-fit: contain;
-
-  :hover {
-    opacity: 0.1;
-  }
+export const HouseInfoGrid = styled.div`
+  display: grid;
+  grid-template-columns: 100px 246px 100px 146px;
+  grid-template-rows: repeat(5, 1fr);
+  grid-auto-flow: column;
+  justify-items: start;
+  row-gap: 16px;
 `;
 
-export const HouseInterior = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+export const AbartarContainer = styled.div`
+  width: 76px;
+  height: 76px;
 
-  z-index: 5;
-  object-fit: contain;
+  background: ${Colors.neutralWhite};
+
+  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const CharacterContainer = styled.div`
-  width: 250px;
-  height: 300px;
+export const AbartarInnerContainer = styled.div`
+  width: 60px;
+  height: 60px;
 
-  background-color: hsla(0, 100%, 50%, 1);
-  background-image: linear-gradient(
+  background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.3),
       rgba(255, 255, 255, 0.3)
@@ -97,194 +113,56 @@ export const CharacterContainer = styled.div`
     radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
     radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0px, transparent 50%);
 
-  filter: drop-shadow(0px 4px 15px rgba(90, 90, 90, 0.1));
-
   box-shadow: 0px 4px 15px rgba(90, 90, 90, 0.1);
-  border-radius: 20px;
-
-  position: relative;
-`;
-
-export const CharacterEditButton = styled.button`
-  position: absolute;
-
-  width: 52px;
-  height: 52px;
-
-  right: 17px;
-  bottom: 15.55px;
-
-  background: rgba(250, 250, 250, 0.5);
-
-  box-shadow: 0px 4px 15px rgba(90, 90, 90, 0.1);
-  border-radius: 20px;
-
-  border: none;
-  padding: 0;
+  border-radius: 50%;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
 `;
 
-export const CharacterViewport = styled.div`
+export const GaugeContainer = styled.div`
+  height: 32px;
+
+  position: relative;
+`;
+
+export const GaugeViewport = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+`;
 
+export const GaugeFill = styled.div<{ value: number }>`
+  width: calc(${(p) => p.value * 100}% + 17px);
+  height: 8px;
+
+  background: #fa422e;
+  border-radius: 4px;
+`;
+
+export const GaugeHandle = styled.div<{ value: number }>`
   position: absolute;
-  left: 0;
   top: 0;
-
-  pointer-events: none;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  left: ${(p) => p.value * 100}%;
 `;
 
-export const LocationButton = styled.button`
-  width: 100%;
-  height: 55px;
+export const JoinButton = styled.button`
+  height: 48px;
 
-  filter: drop-shadow(0px 2px 10px rgba(90, 90, 90, 0.2));
+  background: #fa422e;
+
+  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
   border-radius: 20px;
-
   border: none;
-  padding: 0 35px;
-
-  background: linear-gradient(91.44deg, #b5f6ff 0%, #3b99fc 102.11%);
 
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-`;
-
-export const BuyMembershipButton = styled.button`
-  width: 100%;
-  height: 55px;
-
-  filter: drop-shadow(0px 2px 10px rgba(90, 90, 90, 0.2));
-  border-radius: 20px;
-
-  border: none;
-  padding: 0 35px;
-
-  background: linear-gradient(91.59deg, #ffb671 0%, #ff4747 100%);
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const MembersContainer = styled.div`
-  width: 1300px;
-
-  background: ${Colors.neutralWhite};
-
-  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
-  border-radius: 20px;
-
-  padding: 20px;
-
-  display: grid;
-
-  grid-template-columns: repeat(4, 120px);
-  grid-gap: 12px;
-`;
-
-export const InfoContainer = styled.div`
-  width: 350px;
-  height: 650px;
-
-  background: ${Colors.neutralWhite};
-
-  box-shadow: 0px 4px 15px rgba(90, 90, 90, 0.1);
-  border-radius: 20px;
-
-  padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  position: relative;
-`;
-
-export const InfoViewport = styled.div`
-  width: 310px;
-  height: 610px;
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 400px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: ${Colors.neutralGray300};
-    border-radius: 20px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: ${Colors.neutralGray200};
-    border-radius: 20px;
-  }
-
-  overflow: auto;
-
-  left: 0;
-  top: 0;
-`;
-
-export const FurnitureContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-`;
-
-export const FurnitureIcon = styled.img`
-  width: 60px;
-  height: 60px;
-
-  object-fit: contain;
-`;
-
-export const FurnitureSlot = styled.div`
-  width: 290px;
-  height: 70px;
-
-  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
-  border-radius: 20px;
-
-  padding: 20px;
-
-  margin-bottom: 20px;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const BuyMembership = styled.div`
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-
-  box-shadow: 0px 1px 10px rgba(90, 90, 90, 0.15);
-  border-radius: 20px;
-
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
 `;

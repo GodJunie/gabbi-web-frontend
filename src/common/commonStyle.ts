@@ -187,8 +187,10 @@ export const SizedImage = styled.img<{
   width?: number;
   height?: number;
   objectFit?: string;
+  overflow?: string;
 }>`
   ${(props) => props.width && `width: ${props.width}px`};
   ${(props) => props.height && `height: ${props.height}px`};
   ${(props) => props.objectFit && `object-fit: ${props.objectFit}`};
+  ${(props) => props.overflow && `overflow: ${props.overflow}`};
 `;

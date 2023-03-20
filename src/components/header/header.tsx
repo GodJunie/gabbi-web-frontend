@@ -10,40 +10,22 @@ import * as Styled from "./header.style";
 import { useLocation, useNavigate } from "react-router-dom";
 import { WindowContext } from "context/windowContext";
 import { Colors } from "common";
-import { Icons, MainImages } from "common/images";
+import { Commons, Icons, MainImages } from "common/images";
 import * as Common from "common/commonStyle";
-import LogIn from "components/login";
-import { UserContext } from "context/userContext";
+import SignIn from "components/signIn";
 import { magic } from "services/magic";
-import Username from "components/username";
+import SetUsername from "components/setUsername";
+import { FirebaseAuthContext } from "context/firebaeAuthContext";
 
 function Header(): ReactElement {
   const { isMobile, scrollPosition, width, windowSize } =
     useContext(WindowContext);
   const isTop = useMemo<boolean>(() => scrollPosition < 20, [scrollPosition]);
 
-  const [popup, setPopup] = useState<"login" | "email" | "username" | null>(
-    null
-  );
-
   let navigate = useNavigate();
   let location = useLocation();
-  const { user, setUser, loading, userData } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log(location.pathname);
-    if (!loading) {
-      if (popup === "login" && user) {
-        setPopup(null);
-      }
-      if (user && (!userData || !userData.username)) {
-        setPopup("username");
-      }
-      if (popup === "username" && user && userData && userData.username) {
-        setPopup(null);
-      }
-    }
-  }, [user, userData, popup, loading]);
+  const { user, userData } = useContext(FirebaseAuthContext);
 
   return (
     <>
@@ -57,19 +39,17 @@ function Header(): ReactElement {
             height={40}
             onClick={() => navigate("/")}
           >
-            <Styled.HeaderLogo width={117} height={45} src={Icons.LogoTypo} />
+            <Styled.HeaderLogo width={117} height={45} src={Commons.LogoTypo} />
           </Common.NoOpacityButton>
           <Common.Span />
           {location.pathname !== "/profile" ? (
             <Styled.HeaderProfileButton
               onClick={() => {
-                if (loading) return;
-
-                if (user && user.issuer) {
-                  navigate("/profile");
-                  return;
-                }
-                setPopup("login");
+                // 현재 위치가 프로필이 아니면
+                // 프로필 가기 or 로그인
+                if (user === undefined) return;
+                if (user) navigate("/profile");
+                else navigate("/sign-in");
               }}
             >
               <Common.Center>
@@ -79,7 +59,7 @@ function Header(): ReactElement {
           ) : (
             <Styled.HeaderProfileButton
               onClick={() => {
-                navigate("/");
+                window.location.replace("/");
               }}
             >
               <Common.Center>
@@ -89,8 +69,6 @@ function Header(): ReactElement {
           )}
         </Styled.HeaderViewport>
       </Styled.Header>
-      {popup === "login" && <LogIn onClose={() => setPopup(null)} />}
-      {popup === "username" && <Username />}
     </>
   );
 }

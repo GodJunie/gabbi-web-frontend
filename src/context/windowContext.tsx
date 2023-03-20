@@ -7,7 +7,7 @@ type WindowState = {
   isMobile: boolean;
 };
 
-const maxWidth = 1920;
+const maxWidth = 1440;
 const mobileWidth = 1000;
 
 export const WindowContext = React.createContext<WindowState>({

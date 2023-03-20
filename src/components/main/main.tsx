@@ -11,20 +11,32 @@ import { VerifyUser } from "api/general-api";
 import Web3 from "web3";
 import * as Web3Core from "web3-core";
 import { magic } from "services/magic";
-import { UserContext } from "context/userContext";
 import Loading from "components/loading";
+import { FirebaseAuthContext } from "context/firebaeAuthContext";
 
 function Main(): ReactElement {
   const { isMobile, scrollPosition, width, windowSize } =
     useContext(WindowContext);
 
-  const { user, setUser, loading, userData } = useContext(UserContext);
+  const { user, userData } = useContext(FirebaseAuthContext);
 
   let navigate = useNavigate();
 
+  useEffect(() => {
+    if (user === undefined) return;
+
+    if (user) {
+      if (userData === undefined) return;
+
+      if (!userData || !userData.username) {
+        window.location.replace("/set-username");
+      }
+    }
+  }, [user, userData]);
+
   return (
     <>
-      {loading ? (
+      {user === undefined ? (
         <Loading />
       ) : (
         <>

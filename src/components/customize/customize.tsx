@@ -9,11 +9,11 @@ import { WindowContext } from "context/windowContext";
 import { CustomizeTabIcons, Icons } from "common/images";
 import Header from "components/header";
 import Character from "components/character";
-import { UserContext } from "context/userContext";
 import { db, storage } from "services/firebase";
 import { getBlob, ref as storageRef } from "firebase/storage";
 import { set, ref as databaseRef, update, get } from "firebase/database";
 import Loading from "components/loading";
+import { FirebaseAuthContext } from "context/firebaeAuthContext";
 
 const resourcesData = require("characters.json");
 
@@ -25,8 +25,7 @@ function Customize(): ReactElement {
 
   let navigate = useNavigate();
 
-  const { user, userData, loading, setUser, setUserData } =
-    useContext(UserContext);
+  const { user, userData } = useContext(FirebaseAuthContext);
 
   const [tab, setTab] = useState<CharacterParts>("body");
 
@@ -40,10 +39,12 @@ function Customize(): ReactElement {
 
   async function saveCustomize() {
     if (!characterData) return;
-    const ref = databaseRef(db, `users/${user?.publicAddress}`);
+
+    if (!user) return;
+
+    const ref = databaseRef(db, `users/${user.uid}`);
     await update(ref, { character: characterData });
     const snapshot = await get(ref);
-    setUserData!(snapshot.val());
     navigate("/profile");
   }
 

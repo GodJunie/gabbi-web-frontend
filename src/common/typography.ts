@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const UbuntuRegular = styled.div<{
+export const StyledText = styled.div<{
   textAlign?: string;
   fontSize?: number;
   width?: number;
@@ -8,98 +8,38 @@ export const UbuntuRegular = styled.div<{
   color?: string;
   backgroundColor?: string;
   textDecoration?: string;
+  fontFamily?: string;
+  fontWeight?: string | number;
 }>`
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+
+  ${(props) => props.fontWeight && `font-weight: ${props.fontWeight}`};
+  ${(props) => props.fontFamily && `font-family: ${props.fontFamily}`};
+  ${(props) => props.textAlign && `text-align: ${props.textAlign}`};
+  ${(props) => props.fontSize && `font-size: ${props.fontSize}px`};
+  ${(props) => props.color && `color: ${props.color}`};
+  ${(props) =>
+    props.backgroundColor && `background-color: ${props.backgroundColor}`};
+  ${(props) => props.width && `width: ${props.width}px`};
+  ${(props) => props.height && `height: ${props.height}px`};
+  ${(props) =>
+    props.textDecoration && `text-decoration: ${props.textDecoration}`};
+`;
+
+export const UbuntuRegular = styled(StyledText)`
   font-family: "Ubuntu";
   font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  ${(props) => props.textAlign && `text-align: ${props.textAlign}`};
-  ${(props) => props.fontSize && `font-size: ${props.fontSize}px`};
-  ${(props) => props.color && `color: ${props.color}`};
-  ${(props) =>
-    props.backgroundColor && `background-color: ${props.backgroundColor}`};
-  ${(props) => props.width && `width: ${props.width}px`};
-  ${(props) => props.height && `height: ${props.height}px`};
-  ${(props) =>
-    props.textDecoration && `text-decoration: ${props.textDecoration}`};
 `;
 
-export const PlasterRegular = styled.div<{
-  textAlign?: string;
-  fontSize?: number;
-  width?: number;
-  height?: number;
-  color?: string;
-  backgroundColor?: string;
-  textDecoration?: string;
-}>`
-  font-family: Plaster;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  ${(props) => props.textAlign && `text-align: ${props.textAlign}`};
-  ${(props) => props.fontSize && `font-size: ${props.fontSize}px`};
-  ${(props) => props.color && `color: ${props.color}`};
-  ${(props) =>
-    props.backgroundColor && `background-color: ${props.backgroundColor}`};
-  ${(props) => props.width && `width: ${props.width}px`};
-  ${(props) => props.height && `height: ${props.height}px`};
-  ${(props) =>
-    props.textDecoration && `text-decoration: ${props.textDecoration}`};
+export const UbuntuBold = styled(StyledText)`
+  font-family: "Ubuntu";
+  font-weight: bold;
 `;
 
-export const VibesRegular = styled.div<{
-  textAlign?: string;
-  fontSize?: number;
-  width?: number;
-  height?: number;
-  color?: string;
-  backgroundColor?: string;
-  textDecoration?: string;
-}>`
-  font-family: Vibes;
+export const IndieFlowerRegular = styled(StyledText)`
+  font-family: "IndieFlower";
   font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  ${(props) => props.textAlign && `text-align: ${props.textAlign}`};
-  ${(props) => props.fontSize && `font-size: ${props.fontSize}px`};
-  ${(props) => props.color && `color: ${props.color}`};
-  ${(props) =>
-    props.backgroundColor && `background-color: ${props.backgroundColor}`};
-  ${(props) => props.width && `width: ${props.width}px`};
-  ${(props) => props.height && `height: ${props.height}px`};
-  ${(props) =>
-    props.textDecoration && `text-decoration: ${props.textDecoration}`};
-`;
-
-export const IndieFlowerRegular = styled.div<{
-  textAlign?: string;
-  fontSize?: number;
-  width?: number;
-  height?: number;
-  color?: string;
-  backgroundColor?: string;
-  textDecoration?: string;
-}>`
-  font-family: IndieFlower;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  ${(props) => props.textAlign && `text-align: ${props.textAlign}`};
-  ${(props) => props.fontSize && `font-size: ${props.fontSize}px`};
-  ${(props) => props.color && `color: ${props.color}`};
-  ${(props) =>
-    props.backgroundColor && `background-color: ${props.backgroundColor}`};
-  ${(props) => props.width && `width: ${props.width}px`};
-  ${(props) => props.height && `height: ${props.height}px`};
-  ${(props) =>
-    props.textDecoration && `text-decoration: ${props.textDecoration}`};
 `;
