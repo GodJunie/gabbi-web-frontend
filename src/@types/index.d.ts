@@ -17,4 +17,5 @@ type HouseDto = {
   description?: string;
   properties?: any;
   photos?: string[];
+  keywords?: string[];
 };

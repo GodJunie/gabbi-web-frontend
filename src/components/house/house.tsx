@@ -400,9 +400,14 @@ function House(): ReactElement {
                 color={Colors.neutralBlack}
                 textAlign="center"
               >
-                Beach View&nbsp;&nbsp;|&nbsp;&nbsp;Swimming
-                Pool&nbsp;&nbsp;|&nbsp;&nbsp;Terrace&nbsp;&nbsp;|&nbsp;&nbsp;Private
-                Parking
+                {houseData &&
+                  houseData.keywords &&
+                  houseData.keywords.length > 0 && <>{houseData.keywords[0]}</>}
+                {houseData &&
+                  houseData.keywords &&
+                  houseData.keywords
+                    .slice(1)
+                    .map((e) => <>&nbsp;&nbsp;|&nbsp;&nbsp;{e}</>)}
               </Typo.IndieFlowerRegular>
 
               <Common.SizedBoxH height={36} />
@@ -417,7 +422,11 @@ function House(): ReactElement {
 
               <Common.SizedBoxH height={36} />
 
-              <Typo.UbuntuBold fontSize={22} color={Colors.neutralBlack}>
+              <Typo.UbuntuBold
+                fontSize={22}
+                color={Colors.neutralBlack}
+                textAlign="left"
+              >
                 Where You'll Be
               </Typo.UbuntuBold>
 
