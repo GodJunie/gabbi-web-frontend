@@ -14,4 +14,7 @@ type HouseDto = {
   name: string;
   location?: string;
   members?: string[];
+  description?: string;
+  properties?: any;
+  photos?: string[];
 };

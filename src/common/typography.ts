@@ -11,6 +11,7 @@ export const StyledText = styled.div<{
   fontFamily?: string;
   fontWeight?: string | number;
 }>`
+  white-space: pre-line;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;

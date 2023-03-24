@@ -67,7 +67,9 @@ export default function App(): ReactElement {
               <Route element={<Components.Profile />} path="/profile" />
               <Route element={<Components.Customize />} path="/customize" />
               <Route element={<Components.SetUsername />} path="set-username" />
-              <Route element={<Components.House />} path="house" />
+              <Route path="houses">
+                <Route element={<Components.House />} path=":id" />
+              </Route>
             </Routes>
           </BrowserRouter>
         </FirebaseAuthProvider>

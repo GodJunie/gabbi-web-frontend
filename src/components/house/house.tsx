@@ -2,30 +2,37 @@ import * as Common from "common/commonStyle";
 import * as Typo from "common/typography";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import * as Styled from "./house.style";
+import * as database from "firebase/database";
 
 import { Colors } from "common";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { WindowContext } from "context/windowContext";
-import { Commons, Icons, MainImages, SocialIcons } from "common/images";
-import { magic } from "services/magic";
-import validator from "validator";
-import { OAuthProvider } from "@magic-ext/oauth";
-import { FirebaseAuthContext } from "context/firebaeAuthContext";
-import Header from "components/header";
-import {
-  browserLocalPersistence,
-  GoogleAuthProvider,
-  setPersistence,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "services/firebase";
+import { Commons, Icons, MainImages } from "common/images";
 import Character from "components/character";
+import Header from "components/header";
+import { FirebaseAuthContext } from "context/firebaeAuthContext";
+import { WindowContext } from "context/windowContext";
+import { useParams } from "react-router-dom";
+import { db } from "services/firebase";
 
 function House(): ReactElement {
   const { isMobile, scrollPosition, width, windowSize } =
     useContext(WindowContext);
   const { user, userData } = useContext(FirebaseAuthContext);
+
+  const { id } = useParams();
+  const [houseData, setHouseData] = useState<HouseDto>();
+
+  useEffect(() => {
+    if (!id) return;
+
+    (async () => {
+      const dbRef = database.ref(db, `houses/${id}`);
+      const snapshot = await database.get(dbRef);
+
+      setHouseData(snapshot.val());
+
+      console.log(snapshot.val());
+    })();
+  }, []);
 
   return (
     <>
@@ -36,7 +43,7 @@ function House(): ReactElement {
 
           <Common.FlexRow alignItems="center">
             <Typo.UbuntuBold fontSize={32} color={Colors.neutralBlack}>
-              Gabbi Home
+              {houseData?.name}
             </Typo.UbuntuBold>
 
             <Common.Span />
@@ -59,46 +66,35 @@ function House(): ReactElement {
             alignItems="stretch"
             height={539}
           >
-            <Common.SizedImage
-              src={MainImages.Background}
-              width={960}
-              height={539}
-              objectFit="cover"
-              overflow="hidden"
-            />
+            {houseData && houseData.photos && houseData.photos.length > 0 && (
+              <Common.SizedImage
+                src={houseData.photos[0]}
+                width={960}
+                height={539}
+                objectFit="cover"
+                overflow="hidden"
+              />
+            )}
 
             <Common.FlexColumn
               justifyContent="space-between"
               alignItems="stretch"
             >
-              <Common.SizedImage
-                src={MainImages.Background}
-                width={218}
-                height={122}
-                objectFit="cover"
-                overflow="hidden"
-              />
-              <Common.SizedImage
-                src={MainImages.Background}
-                width={218}
-                height={122}
-                objectFit="cover"
-                overflow="hidden"
-              />
-              <Common.SizedImage
-                src={MainImages.Background}
-                width={218}
-                height={122}
-                objectFit="cover"
-                overflow="hidden"
-              />
-              <Common.SizedImage
-                src={MainImages.Background}
-                width={218}
-                height={122}
-                objectFit="cover"
-                overflow="hidden"
-              />
+              {houseData &&
+                houseData.photos &&
+                houseData.photos.length > 1 &&
+                houseData.photos
+                  .slice(1, 5)
+                  .map((e, i) => (
+                    <Common.SizedImage
+                      src={e}
+                      width={218}
+                      height={122}
+                      objectFit="cover"
+                      overflow="hidden"
+                      key={e}
+                    />
+                  ))}
             </Common.FlexColumn>
           </Common.FlexRow>
 
@@ -389,21 +385,12 @@ function House(): ReactElement {
                 color={Colors.neutralBlack}
                 textAlign="left"
               >
-                The property is in the prime location of Lombok, less than 100
-                meters from the beach. It has been carefully designed and
-                situated to provide a sense of serenity and privacy away from
-                the hustle and bustle of urban life but close enough to walk to
-                the beach and some of Lombok’s best restaurants.
-                <br />
-                <br />
-                Undoubtedly the quality and products used are premium grades,
-                such as high-end Aluminum Doors, Recycle woods facade, high-end
-                furniture, top appliances, and much more.
-                <br />
-                <br />
-                Great residential homes with all the Western comforts and 4
-                bedrooms on 1 level or an excellent investment with all licenses
-                in place, such as the Pondok Wisata.
+                {houseData?.description?.split("\\n").map((e) => (
+                  <>
+                    {e}
+                    <br />
+                  </>
+                ))}
               </Typo.UbuntuRegular>
 
               <Common.SizedBoxH height={36} />

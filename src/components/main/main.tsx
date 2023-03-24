@@ -52,7 +52,7 @@ function Main(): ReactElement {
               <Styled.MainCompass src={MainImages.Compass} />
               <Styled.MainIsland
                 onClick={() => {
-                  navigate("/house?id=0");
+                  navigate("/houses/0");
                 }}
               >
                 <Common.SizedImage src={MainImages.Island} width={300} />
