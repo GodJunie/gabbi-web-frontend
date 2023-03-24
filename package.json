@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@magic-ext/oauth": "^7.1.0",
+    "@react-google-maps/api": "^2.18.1",
     "@web3auth/base": "^4.3.2",
     "@web3auth/modal": "^4.3.2",
     "@web3auth/ui": "^4.3.2",

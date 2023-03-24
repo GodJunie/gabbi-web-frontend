@@ -75,9 +75,8 @@ export const HouseMenuButton = styled.button`
 
 export const HouseInfoGrid = styled.div`
   display: grid;
-  grid-template-columns: 100px 246px 100px 146px;
+  grid-template-columns: 100px 246px;
   grid-template-rows: repeat(5, 1fr);
-  grid-auto-flow: column;
   justify-items: start;
   row-gap: 16px;
 `;

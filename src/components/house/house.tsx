@@ -1,6 +1,13 @@
 import * as Common from "common/commonStyle";
 import * as Typo from "common/typography";
-import React, { ReactElement, useContext, useEffect, useState } from "react";
+import React, {
+  ReactElement,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import * as Styled from "./house.style";
 import * as database from "firebase/database";
 
@@ -21,6 +28,8 @@ function House(): ReactElement {
   const { id } = useParams();
   const [houseData, setHouseData] = useState<HouseDto>();
 
+  const overviewRef = useRef(null);
+
   useEffect(() => {
     if (!id) return;
 
@@ -29,10 +38,22 @@ function House(): ReactElement {
       const snapshot = await database.get(dbRef);
 
       setHouseData(snapshot.val());
-
-      console.log(snapshot.val());
     })();
   }, []);
+
+  function scrollToElement(id: string) {
+    const element = document.getElementById(id);
+    if (element) {
+      var headerOffset = 115;
+      var elementPosition = element.getBoundingClientRect().top;
+      var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  }
 
   return (
     <>
@@ -265,7 +286,9 @@ function House(): ReactElement {
             <Common.FlexColumn width={825} alignItems="stretch">
               <Common.SizedBoxH height={8.5} />
               <Common.FlexRow alignItems="center">
-                <Styled.HouseMenuButton>
+                <Styled.HouseMenuButton
+                  onClick={() => scrollToElement("overview")}
+                >
                   <Common.SizedImage src={Icons.House} />
                   <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
                     Overview
@@ -274,7 +297,9 @@ function House(): ReactElement {
 
                 <Common.SizedBoxW width={14} />
 
-                <Styled.HouseMenuButton>
+                <Styled.HouseMenuButton
+                  onClick={() => scrollToElement("floor-plan")}
+                >
                   <Common.SizedImage src={Icons.Layers} />
                   <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
                     Floor Plan
@@ -283,7 +308,7 @@ function House(): ReactElement {
 
                 <Common.SizedBoxW width={14} />
 
-                <Styled.HouseMenuButton>
+                <Styled.HouseMenuButton onClick={() => scrollToElement("map")}>
                   <Common.SizedImage src={Icons.Pin} />
                   <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
                     Map
@@ -305,78 +330,60 @@ function House(): ReactElement {
 
               <Common.SizedBoxH height={36} />
 
-              <Styled.HouseInfoGrid>
-                {/* columns */}
-                <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
-                  Location
-                </Typo.UbuntuBold>
-                <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
-                  Land Size
-                </Typo.UbuntuBold>
-                <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
-                  Living Size
-                </Typo.UbuntuBold>
-                <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
-                  Ownership
-                </Typo.UbuntuBold>
-                <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
-                  Period
-                </Typo.UbuntuBold>
-                {/* infos */}
-                <Typo.UbuntuRegular fontSize={14} color={Colors.neutralBlack}>
-                  Lombok, Indonesia
-                </Typo.UbuntuRegular>
-                <Typo.UbuntuRegular fontSize={14} color={Colors.neutralBlack}>
-                  200 sqm
-                </Typo.UbuntuRegular>
-                <Typo.UbuntuRegular fontSize={14} color={Colors.neutralBlack}>
-                  TBA
-                </Typo.UbuntuRegular>
-                <Typo.UbuntuRegular fontSize={14} color={Colors.neutralBlack}>
-                  Leasehold
-                </Typo.UbuntuRegular>
-                <Typo.UbuntuRegular fontSize={14} color={Colors.neutralBlack}>
-                  20 years
-                </Typo.UbuntuRegular>
-                {/* columns */}
-                <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
-                  Beds / Baths
-                </Typo.UbuntuBold>
-                <Typo.UbuntuBold fontSize={14} color={Colors.neutralBlack}>
-                  Level
-                </Typo.UbuntuBold>
-                <Typo.UbuntuBold
-                  fontSize={14}
-                  color={Colors.neutralBlack}
-                ></Typo.UbuntuBold>
-                <Typo.UbuntuBold
-                  fontSize={14}
-                  color={Colors.neutralBlack}
-                ></Typo.UbuntuBold>
-                <Typo.UbuntuBold
-                  fontSize={14}
-                  color={Colors.neutralBlack}
-                ></Typo.UbuntuBold>
-                {/* infos */}
-                <Typo.UbuntuRegular fontSize={14} color={Colors.neutralBlack}>
-                  TBA
-                </Typo.UbuntuRegular>
-                <Typo.UbuntuRegular fontSize={14} color={Colors.neutralBlack}>
-                  TBA
-                </Typo.UbuntuRegular>
-                <Typo.UbuntuRegular
-                  fontSize={14}
-                  color={Colors.neutralBlack}
-                ></Typo.UbuntuRegular>
-                <Typo.UbuntuRegular
-                  fontSize={14}
-                  color={Colors.neutralBlack}
-                ></Typo.UbuntuRegular>
-                <Typo.UbuntuRegular
-                  fontSize={14}
-                  color={Colors.neutralBlack}
-                ></Typo.UbuntuRegular>
-              </Styled.HouseInfoGrid>
+              <Common.FlexRow
+                alignItems="flex-start"
+                justifyContent="flex-start"
+                id="overview"
+              >
+                <Styled.HouseInfoGrid>
+                  {houseData?.properties &&
+                    Object.keys(houseData.properties).length > 0 &&
+                    Object.keys(houseData?.properties)
+                      .slice(0, 5)
+                      .map((e) => (
+                        <>
+                          <Typo.UbuntuBold
+                            fontSize={14}
+                            color={Colors.neutralBlack}
+                            key={e}
+                          >
+                            {e}
+                          </Typo.UbuntuBold>
+                          <Typo.UbuntuRegular
+                            fontSize={14}
+                            color={Colors.neutralBlack}
+                            key={houseData?.properties[e]}
+                          >
+                            {houseData?.properties[e]}
+                          </Typo.UbuntuRegular>
+                        </>
+                      ))}
+                </Styled.HouseInfoGrid>
+                <Styled.HouseInfoGrid>
+                  {houseData?.properties &&
+                    Object.keys(houseData.properties).length > 5 &&
+                    Object.keys(houseData?.properties)
+                      .slice(5, 10)
+                      .map((e) => (
+                        <>
+                          <Typo.UbuntuBold
+                            fontSize={14}
+                            color={Colors.neutralBlack}
+                            key={e}
+                          >
+                            {e}
+                          </Typo.UbuntuBold>
+                          <Typo.UbuntuRegular
+                            fontSize={14}
+                            color={Colors.neutralBlack}
+                            key={houseData?.properties[e]}
+                          >
+                            {houseData?.properties[e]}
+                          </Typo.UbuntuRegular>
+                        </>
+                      ))}
+                </Styled.HouseInfoGrid>
+              </Common.FlexRow>
 
               <Common.SizedBoxH height={36} />
 
@@ -438,6 +445,7 @@ function House(): ReactElement {
                 height={450}
                 objectFit="cover"
                 overflow="hidden"
+                id="map"
               />
             </Common.FlexColumn>
           </Common.FlexRow>
