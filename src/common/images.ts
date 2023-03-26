@@ -3,8 +3,8 @@ import LogoTypo from "img/icons/gabbi_logo_typo.svg";
 import Profile from "img/icons/profile.svg";
 
 import Close from "img/icons/close.svg";
+import CloseWhite from "img/icons/close_white.svg";
 import Mail from "img/icons/mail.svg";
-import Send from "img/icons/arrow_right.svg";
 import Link from "img/icons/link.svg";
 import Copy from "img/icons/copy.svg";
 import Edit from "img/icons/edit.svg";
@@ -16,12 +16,14 @@ import Share from "img/icons/Share.svg";
 import House from "img/icons/House.svg";
 import Pin from "img/icons/Pin.svg";
 import Layers from "img/icons/Layers.svg";
+import ArrowLeftWhite from "img/icons/ArrowLeftWhite.svg";
+import ArrowRightWhite from "img/icons/ArrowRightWhite.svg";
 
 export const Icons = {
   Profile,
   Close,
+  CloseWhite,
   Mail,
-  Send,
   Link,
   Copy,
   Edit,
@@ -33,6 +35,8 @@ export const Icons = {
   House,
   Pin,
   Layers,
+  ArrowLeftWhite,
+  ArrowRightWhite,
 };
 
 export const Commons = {

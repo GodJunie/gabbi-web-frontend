@@ -28,6 +28,9 @@ function House(): ReactElement {
   const { id } = useParams();
   const [houseData, setHouseData] = useState<HouseDto>();
 
+  const [showImages, setShowImages] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+
   const overviewRef = useRef(null);
 
   useEffect(() => {
@@ -88,13 +91,15 @@ function House(): ReactElement {
             height={539}
           >
             {houseData && houseData.photos && houseData.photos.length > 0 && (
-              <Common.SizedImage
-                src={houseData.photos[0]}
-                width={960}
-                height={539}
-                objectFit="cover"
-                overflow="hidden"
-              />
+              <Common.NoOpacityButton onClick={() => setShowImages(true)}>
+                <Common.SizedImage
+                  src={houseData.photos[0]}
+                  width={960}
+                  height={539}
+                  objectFit="cover"
+                  overflow="hidden"
+                />
+              </Common.NoOpacityButton>
             )}
 
             <Common.FlexColumn
@@ -104,18 +109,26 @@ function House(): ReactElement {
               {houseData &&
                 houseData.photos &&
                 houseData.photos.length > 1 &&
-                houseData.photos
-                  .slice(1, 5)
-                  .map((e, i) => (
-                    <Common.SizedImage
-                      src={e}
-                      width={218}
-                      height={122}
-                      objectFit="cover"
-                      overflow="hidden"
-                      key={e}
-                    />
-                  ))}
+                houseData.photos.slice(1, 5).map((e, i) => (
+                  <Styled.SmallPhotoContainer
+                    key={e}
+                    onClick={() => setShowImages(true)}
+                  >
+                    <Styled.SmallPhotoImage src={e} />
+                    {i == 3 &&
+                      houseData.photos &&
+                      houseData.photos.length > 5 && (
+                        <Styled.SmallPhotoMore>
+                          <Typo.UbuntuBold
+                            fontSize={14}
+                            color={Colors.neutralWhite}
+                          >
+                            {houseData.photos.length - 4} more photos
+                          </Typo.UbuntuBold>
+                        </Styled.SmallPhotoMore>
+                      )}
+                  </Styled.SmallPhotoContainer>
+                ))}
             </Common.FlexColumn>
           </Common.FlexRow>
 
@@ -337,51 +350,47 @@ function House(): ReactElement {
               >
                 <Styled.HouseInfoGrid>
                   {houseData?.properties &&
-                    Object.keys(houseData.properties).length > 0 &&
-                    Object.keys(houseData?.properties)
-                      .slice(0, 5)
-                      .map((e) => (
-                        <>
-                          <Typo.UbuntuBold
-                            fontSize={14}
-                            color={Colors.neutralBlack}
-                            key={e}
-                          >
-                            {e}
-                          </Typo.UbuntuBold>
-                          <Typo.UbuntuRegular
-                            fontSize={14}
-                            color={Colors.neutralBlack}
-                            key={houseData?.properties[e]}
-                          >
-                            {houseData?.properties[e]}
-                          </Typo.UbuntuRegular>
-                        </>
-                      ))}
+                    houseData.properties.length > 0 &&
+                    houseData.properties.slice(0, 5).map((e) => (
+                      <>
+                        <Typo.UbuntuBold
+                          fontSize={14}
+                          color={Colors.neutralBlack}
+                          key={e.key}
+                        >
+                          {e.key}
+                        </Typo.UbuntuBold>
+                        <Typo.UbuntuRegular
+                          fontSize={14}
+                          color={Colors.neutralBlack}
+                          key={e.value}
+                        >
+                          {e.value}
+                        </Typo.UbuntuRegular>
+                      </>
+                    ))}
                 </Styled.HouseInfoGrid>
                 <Styled.HouseInfoGrid>
                   {houseData?.properties &&
-                    Object.keys(houseData.properties).length > 5 &&
-                    Object.keys(houseData?.properties)
-                      .slice(5, 10)
-                      .map((e) => (
-                        <>
-                          <Typo.UbuntuBold
-                            fontSize={14}
-                            color={Colors.neutralBlack}
-                            key={e}
-                          >
-                            {e}
-                          </Typo.UbuntuBold>
-                          <Typo.UbuntuRegular
-                            fontSize={14}
-                            color={Colors.neutralBlack}
-                            key={houseData?.properties[e]}
-                          >
-                            {houseData?.properties[e]}
-                          </Typo.UbuntuRegular>
-                        </>
-                      ))}
+                    houseData.properties.length > 5 &&
+                    houseData.properties.slice(5, 10).map((e) => (
+                      <>
+                        <Typo.UbuntuBold
+                          fontSize={14}
+                          color={Colors.neutralBlack}
+                          key={e.key}
+                        >
+                          {e.key}
+                        </Typo.UbuntuBold>
+                        <Typo.UbuntuRegular
+                          fontSize={14}
+                          color={Colors.neutralBlack}
+                          key={e.value}
+                        >
+                          {e.value}
+                        </Typo.UbuntuRegular>
+                      </>
+                    ))}
                 </Styled.HouseInfoGrid>
               </Common.FlexRow>
 
@@ -451,6 +460,114 @@ function House(): ReactElement {
           </Common.FlexRow>
         </Styled.Viewport>
       </Styled.Container>
+      {showImages && (
+        <Styled.MorePhotos>
+          <Styled.MorePhotosViewport width={width}>
+            <button
+              style={{
+                position: "absolute",
+                top: "24px",
+                left: "24px",
+                display: "flex",
+                alignItems: "center",
+                border: "none",
+                padding: 0,
+                zIndex: 1,
+                background: "none",
+              }}
+              onClick={() => setShowImages(false)}
+            >
+              <Common.SizedImage
+                width={24}
+                height={24}
+                src={Icons.CloseWhite}
+              />
+              <Common.SizedBoxW width={4} />
+              <Typo.UbuntuRegular fontSize={14} color={Colors.neutralWhite}>
+                Close
+              </Typo.UbuntuRegular>
+            </button>
+
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Common.FlexRow
+                width={1140}
+                height={533}
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Common.NoOpacityButton>
+                  <Common.SizedImage
+                    width={34}
+                    height={34}
+                    src={Icons.ArrowLeftWhite}
+                  />
+                </Common.NoOpacityButton>
+
+                {houseData && houseData.photos ? (
+                  <Common.SizedImage
+                    src={houseData?.photos[imageIndex]}
+                    width={948}
+                    height={533}
+                    objectFit="cover"
+                    overflow="hidden"
+                  />
+                ) : (
+                  <Common.SizedBox width={948} height={533} />
+                )}
+
+                <Common.NoOpacityButton>
+                  <Common.SizedImage
+                    width={34}
+                    height={34}
+                    src={Icons.ArrowRightWhite}
+                  />
+                </Common.NoOpacityButton>
+              </Common.FlexRow>
+
+              <Common.SizedBoxH height={12} />
+
+              <Styled.MorePhotosList>
+                {houseData &&
+                  houseData.photos &&
+                  houseData.photos.map((e, i) => (
+                    <>
+                      <Styled.MorePhotosSlot
+                        key={e}
+                        onClick={() => setImageIndex(i)}
+                      >
+                        {houseData.photos && (
+                          <Styled.MorePhotosSlotImage src={e} />
+                        )}
+                        {i != imageIndex && <Styled.MorePhotosSlotDeselected />}
+                      </Styled.MorePhotosSlot>
+                      {houseData.photos && i < houseData.photos.length - 1 && (
+                        <div style={{ width: "12px", flexShrink: 0 }} />
+                      )}
+                    </>
+                  ))}
+              </Styled.MorePhotosList>
+
+              <Common.SizedBoxH height={12} />
+
+              <Typo.UbuntuRegular fontSize={14} color={Colors.neutralGray300}>
+                {imageIndex + 1}/{houseData?.photos && houseData.photos.length}
+              </Typo.UbuntuRegular>
+            </div>
+          </Styled.MorePhotosViewport>
+        </Styled.MorePhotos>
+      )}
     </>
   );
 }

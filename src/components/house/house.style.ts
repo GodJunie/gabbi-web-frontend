@@ -36,6 +36,42 @@ export const CircleButton = styled.button`
   justify-content: center;
 `;
 
+export const SmallPhotoContainer = styled.button`
+  border: none;
+  padding: 0;
+
+  width: 218px;
+  height: 122px;
+
+  position: relative;
+`;
+
+export const SmallPhotoImage = styled.img`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+`;
+
+export const SmallPhotoMore = styled.div`
+  background: rgba(57, 57, 57, 0.6);
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const MembersContainer = styled.div`
   position: sticky;
   top: 108px;
@@ -164,4 +200,80 @@ export const JoinButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const MorePhotos = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  background: rgba(57, 57, 57, 0.97);
+  backdrop-filter: blur(5px);
+
+  z-index: 1000;
+`;
+
+export const MorePhotosViewport = styled.div<{ width: number }>`
+  width: ${(p) => p.width}px;
+  height: 100%;
+
+  position: relative;
+`;
+
+export const MorePhotosList = styled.div`
+  width: 1020px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
+
+export const MorePhotosSlot = styled.button`
+  width: 180px;
+  height: 100px;
+
+  flex-shrink: 0;
+
+  border: none;
+  background: none;
+
+  position: relative;
+`;
+
+export const MorePhotosSlotImage = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  object-fit: cover;
+  overflow: hidden;
+`;
+
+export const MorePhotosSlotDeselected = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  background: rgba(220, 220, 220, 0.7);
 `;
