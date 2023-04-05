@@ -20,6 +20,11 @@ import { WindowContext } from "context/windowContext";
 import { useParams } from "react-router-dom";
 import { db } from "services/firebase";
 
+import { GoogleMap, useJsApiLoader, LoadScript } from "@react-google-maps/api";
+import YouTube, { YouTubeProps } from "react-youtube";
+
+const GoogleMapApiKey = "AIzaSyATDrDX-idxkAlp_vL6tVftGfdJo7XX1TA";
+
 function House(): ReactElement {
   const { isMobile, scrollPosition, width, windowSize } =
     useContext(WindowContext);
@@ -31,7 +36,47 @@ function House(): ReactElement {
   const [showImages, setShowImages] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 
-  const overviewRef = useRef(null);
+  //#region Google Map
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: GoogleMapApiKey,
+  });
+
+  const containerStyle = {
+    width: "801px",
+    height: "450px",
+  };
+
+  const center = {
+    lat: -8.7277218,
+    lng: 116.0438455,
+  };
+
+  const [map, setMap] = React.useState(null);
+
+  const onLoad = React.useCallback(function callback(map: any) {
+    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map: any) {
+    setMap(null);
+  }, []);
+  //#endregion
+
+  //#region Youtube
+  const opts = {
+    width: "801",
+    height: "450",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+  //#endregion
 
   useEffect(() => {
     if (!id) return;
@@ -329,9 +374,7 @@ function House(): ReactElement {
                 </Styled.HouseMenuButton>
               </Common.FlexRow>
               <Common.SizedBoxH height={8.5} />
-
               <Common.SizedBoxH height={19} />
-
               <Typo.IndieFlowerRegular
                 fontSize={22}
                 color={Colors.neutralBlack}
@@ -340,9 +383,7 @@ function House(): ReactElement {
                 “A balance of simplicity and comfort. Stunning, intelligent and
                 welcoming.”
               </Typo.IndieFlowerRegular>
-
               <Common.SizedBoxH height={36} />
-
               <Common.FlexRow
                 alignItems="flex-start"
                 justifyContent="flex-start"
@@ -393,9 +434,7 @@ function House(): ReactElement {
                     ))}
                 </Styled.HouseInfoGrid>
               </Common.FlexRow>
-
               <Common.SizedBoxH height={36} />
-
               <Typo.UbuntuRegular
                 fontSize={14}
                 color={Colors.neutralBlack}
@@ -408,9 +447,7 @@ function House(): ReactElement {
                   </>
                 ))}
               </Typo.UbuntuRegular>
-
               <Common.SizedBoxH height={36} />
-
               <Typo.IndieFlowerRegular
                 fontSize={22}
                 color={Colors.neutralBlack}
@@ -425,19 +462,11 @@ function House(): ReactElement {
                     .slice(1)
                     .map((e) => <>&nbsp;&nbsp;|&nbsp;&nbsp;{e}</>)}
               </Typo.IndieFlowerRegular>
-
               <Common.SizedBoxH height={36} />
 
-              <Common.SizedImage
-                src={MainImages.Background}
-                width={801}
-                height={450}
-                objectFit="cover"
-                overflow="hidden"
-              />
+              <YouTube videoId="NeOANDxWa0U" opts={opts} />
 
               <Common.SizedBoxH height={36} />
-
               <Typo.UbuntuBold
                 fontSize={22}
                 color={Colors.neutralBlack}
@@ -445,17 +474,27 @@ function House(): ReactElement {
               >
                 Where You'll Be
               </Typo.UbuntuBold>
-
               <Common.SizedBoxH height={28} />
-
-              <Common.SizedImage
+              {/* <Common.SizedImage
                 src={MainImages.Background}
                 width={801}
                 height={450}
                 objectFit="cover"
                 overflow="hidden"
                 id="map"
-              />
+              /> */}
+              {isLoaded && (
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={center}
+                  zoom={10}
+                  onLoad={onLoad}
+                  onUnmount={onUnmount}
+                >
+                  {/* Child components, such as markers, info windows, etc. */}
+                  <></>
+                </GoogleMap>
+              )}
             </Common.FlexColumn>
           </Common.FlexRow>
         </Styled.Viewport>
