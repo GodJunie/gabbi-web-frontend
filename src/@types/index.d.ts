@@ -12,10 +12,14 @@ type CharacterParts = "body" | "eyes" | "cloth" | "head" | "face";
 
 type HouseDto = {
   name: string;
-  location?: string;
+  location?: {
+    lat: number;
+    lng: number;
+  };
   members?: string[];
   description?: string;
   properties?: { key: string; value: string }[];
   photos?: string[];
   keywords?: string[];
+  video?: string;
 };

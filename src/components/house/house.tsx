@@ -464,36 +464,38 @@ function House(): ReactElement {
               </Typo.IndieFlowerRegular>
               <Common.SizedBoxH height={36} />
 
-              <YouTube videoId="NeOANDxWa0U" opts={opts} />
+              {houseData && houseData.video && (
+                <YouTube videoId={houseData.video} opts={opts} />
+              )}
 
-              <Common.SizedBoxH height={36} />
-              <Typo.UbuntuBold
-                fontSize={22}
-                color={Colors.neutralBlack}
-                textAlign="left"
-              >
-                Where You'll Be
-              </Typo.UbuntuBold>
-              <Common.SizedBoxH height={28} />
-              {/* <Common.SizedImage
-                src={MainImages.Background}
-                width={801}
-                height={450}
-                objectFit="cover"
-                overflow="hidden"
-                id="map"
-              /> */}
-              {isLoaded && (
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={center}
-                  zoom={10}
-                  onLoad={onLoad}
-                  onUnmount={onUnmount}
-                >
-                  {/* Child components, such as markers, info windows, etc. */}
-                  <></>
-                </GoogleMap>
+              {isLoaded && houseData && houseData.location && (
+                <>
+                  <Common.SizedBoxH height={36} />
+
+                  <Typo.UbuntuBold
+                    fontSize={22}
+                    color={Colors.neutralBlack}
+                    textAlign="left"
+                  >
+                    Where You'll Be
+                  </Typo.UbuntuBold>
+
+                  <Common.SizedBoxH height={28} />
+
+                  <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={{
+                      lat: houseData.location.lat,
+                      lng: houseData.location.lng,
+                    }}
+                    zoom={10}
+                    onLoad={onLoad}
+                    onUnmount={onUnmount}
+                  >
+                    {/* Child components, such as markers, info windows, etc. */}
+                    <></>
+                  </GoogleMap>
+                </>
               )}
             </Common.FlexColumn>
           </Common.FlexRow>
